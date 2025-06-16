@@ -1,29 +1,35 @@
-echo "Beginning Drupal 10 build" >> /root/build-drupal10.log
+echo "Beginning Drupal 11 build" >> /root/build-drupal11.log
 
 apt update -y
 apt -y install \
   zip \
   unzip \
   jq \
+  curl \
+  gpg \
+  gnupg2 \
+  software-properties-common \
+  ca-certificates \
+  apt-transport-https \
+  lsb-release \
   apache2 \
   mysql-server \
   mysql-client \
-  php \
-  php-mysql \
-  php-cli \
-  php-common \
-  php-curl \
-  php-dev \
-  php-fpm \
-  php-json \
-  php-soap \
-  php-zip \
-  php-date \
-  php-intl \
-  php-xml \
-  php-gd \
-  php-curl \
-  php-mbstring
+
+add-apt-repository -y ppa:ondrej/php
+apt update -y
+apt -y install \
+  php8.4 \
+  php8.4-mysql \
+  php8.4-curl \
+  php8.4-dev \
+  php8.4-fpm \
+  php8.4-soap \
+  php8.4-zip \
+  php8.4-intl \
+  php8.4-gd \
+  php8.4-mbstring \
+  libapache2-mod-php8.4
 
 echo "COMPOSER_ALLOW_SUPERUSER=1" >> /etc/environment
 source /etc/environment
@@ -38,6 +44,6 @@ HOME=/root /usr/local/bin/composer --no-interaction global require zaporylie/com
 mkdir -p /root/.config/composer
 
 cd /var/www/html
-composer create-project drupal-composer/drupal-project:10.x-dev -n drupal10default
+composer create-project drupal-composer/drupal-project:11.x-dev -n drupal11default
 
-echo "Drupal 10 build complete." >> /root/build-drupal10.log
+echo "Drupal 11 build complete." >> /root/build-drupal11.log
