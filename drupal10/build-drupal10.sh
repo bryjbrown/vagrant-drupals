@@ -1,4 +1,4 @@
-echo "Beginning Drupal 11 build" >> /root/build-drupal11.log
+echo "Beginning Drupal 10 build" >> /root/build-drupal11.log
 
 apt update -y
 apt -y install \
